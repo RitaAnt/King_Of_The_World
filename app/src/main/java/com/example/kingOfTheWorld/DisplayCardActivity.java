@@ -10,15 +10,10 @@ import android.widget.ImageView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import com.example.kingOfTheWorld.utill.CardManager;
 
 public class DisplayCardActivity extends AppCompatActivity {
 
-    private List<Integer> quadrupledAndShuffledCardImages;
-    private int currentIndex = 0;
     private ImageView imageView;
 
     @Override
@@ -31,49 +26,33 @@ public class DisplayCardActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_display_card);
-        initializeQuadrupledAndShuffledCardImages();
+
         imageView = findViewById(R.id.imageView);
         showNextCard();
     }
 
-    private void initializeQuadrupledAndShuffledCardImages() {
-        List<Integer> cardImages = Arrays.asList(
-                R.drawable.card6,
-                R.drawable.card7,
-                R.drawable.card8,
-                R.drawable.card9,
-                R.drawable.cardj,
-                R.drawable.cardq,
-                R.drawable.cardk,
-                R.drawable.cardt
-        );
-
-        List<Integer> temp = new ArrayList<>(cardImages);
-        temp.addAll(cardImages);
-
-        List<Integer> doubledTemp = new ArrayList<>(temp);
-        doubledTemp.addAll(temp);
-
-        quadrupledAndShuffledCardImages = new ArrayList<>(doubledTemp);
-        Collections.shuffle(quadrupledAndShuffledCardImages);
-        Collections.shuffle(quadrupledAndShuffledCardImages);
-        Collections.shuffle(quadrupledAndShuffledCardImages);
-    }
-
     private void showNextCard() {
-        if (currentIndex < quadrupledAndShuffledCardImages.size()) {
-            imageView.setImageResource(quadrupledAndShuffledCardImages.get(currentIndex));
-            currentIndex++;
+        CardManager cardManager = CardManager.getInstance();
+        if (cardManager.getCurrentCardIndex() < cardManager.getShuffledCards().size()) {
+            int currentCard = cardManager.getShuffledCards().get(cardManager.getCurrentCardIndex());
+            imageView.setImageResource(currentCard);
+            cardManager.incrementCardIndex();
+        } else {
+            Intent endIntent = new Intent(this, EndActivity.class);
+            startActivity(endIntent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
     public void onNextButtonClick(View view) {
-        if (currentIndex < quadrupledAndShuffledCardImages.size()) {
+        CardManager cardManager = CardManager.getInstance();
+        if (cardManager.getCurrentCardIndex() < cardManager.getShuffledCards().size()) {
             Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
             imageView.startAnimation(fadeOut);
 
-            imageView.setImageResource(quadrupledAndShuffledCardImages.get(currentIndex));
-            currentIndex++;
+            int currentCard = cardManager.getShuffledCards().get(cardManager.getCurrentCardIndex());
+            imageView.setImageResource(currentCard);
+            cardManager.incrementCardIndex();
 
             Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
             imageView.startAnimation(fadeIn);
