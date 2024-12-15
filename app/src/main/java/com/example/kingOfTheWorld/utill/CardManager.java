@@ -11,7 +11,6 @@ public class CardManager {
     private static CardManager instance;
     private List<Integer> shuffledCards;
     private int currentCardIndex = 0;
-    private int cardKCount = 0;
 
     private CardManager() {
         initializeAndShuffleCards();
@@ -37,46 +36,16 @@ public class CardManager {
                 R.drawable.card10,
                 R.drawable.cardj,
                 R.drawable.cardq,
+                R.drawable.cardk,
                 R.drawable.cardt
         );
 
         shuffledCards = new ArrayList<>();
-
-        shuffledCards.add(R.drawable.cardk);
-        shuffledCards.add(R.drawable.cardk);
-        shuffledCards.add(R.drawable.cardk);
-
         shuffledCards.addAll(cardImages);
         shuffledCards.addAll(cardImages);
         shuffledCards.addAll(cardImages);
         shuffledCards.addAll(cardImages);
-
         Collections.shuffle(shuffledCards);
-        addKing();
-    }
-
-    public void addKing() {
-        makeCardThirdNotLast();
-        int randomIndex = getIndexThirdK() +
-                (int) (Math.random() * (shuffledCards.size() - getIndexThirdK() + 1));
-        shuffledCards.add(randomIndex, R.drawable.cardking);
-    }
-
-    public void makeCardThirdNotLast() {
-        while (isCardThirdKLast()) {
-            Collections.shuffle(shuffledCards);
-        }
-    }
-    public boolean isCardThirdKLast() {
-        return getIndexThirdK() == getSizeShuffledCards();
-    }
-
-    public int getSizeShuffledCards() {
-        return shuffledCards.size();
-    }
-
-    public int getIndexThirdK() {
-        return shuffledCards.lastIndexOf(R.drawable.cardk);
     }
 
     public List<Integer> getShuffledCards() {
