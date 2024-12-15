@@ -1,4 +1,4 @@
-package com.example.seven_drink;
+package com.example.kingOfTheWorld;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import android.widget.Button;
+
+import com.example.seven_drink.R;
 
 public class MainActivity extends AppCompatActivity {
 

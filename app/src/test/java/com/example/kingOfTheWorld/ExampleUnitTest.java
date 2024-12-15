@@ -1,4 +1,4 @@
-package com.example.seven_drink;
+package com.example.kingOfTheWorld;
 
 import org.junit.Test;
 
