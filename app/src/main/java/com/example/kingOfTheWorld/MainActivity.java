@@ -2,6 +2,7 @@ package com.example.kingOfTheWorld;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import android.widget.Button;
 
-import com.example.seven_drink.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("MainActivity", "Ошибка при инициализации картинок", e);
         }
 
     }
